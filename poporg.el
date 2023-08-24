@@ -89,7 +89,7 @@ should not match newlines."
 
 In the absence of any hooks here, the poporg editing buffer is in
 `fundamental-mode', so you should probably use this hook to set the major mode.
-By default this hook enables `org-mode'."
+By default this hook enables `org-mode'. The variable `original-major-mode' points to the major mode of the buffer that this hook is called from."
   :group 'poporg
   :type 'hook)
 
@@ -634,7 +634,8 @@ buffer instead."
            (start  (nth 0 reg))
            (end    (nth 1 reg))
            (prefix (nth 2 reg))
-           (overlay (make-overlay start end)))
+           (overlay (make-overlay start end))
+           (original-major-mode major-mode))
       (setq poporg-pre-window-configuration (current-window-configuration))
       ;; Dim and protect the original text.
       (overlay-put overlay 'face 'poporg-edited-face)
